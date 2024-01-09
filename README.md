@@ -8,7 +8,7 @@ We will be using lakeFS and appliedAI's filesystem wrapper lakeFS-spec to facili
 
 Before you jump in, there are some setup-steps: 
 
-1. Environment Setup
+## 1. Environment Setup
  Create a local virtual environment and install dependencies:
 
 ```bash
@@ -19,7 +19,7 @@ Then, activate the virtual environment and Install all required dependencies by 
 ```bash
 pip install -r requirements.txt
 ```
-2. Docker Installation and Setup
+## 2. Docker Installation and Setup
 To run a local lakeFS backend, we use docker. If you don't have it installed follow the instructions [here](https://docs.docker.com/get-docker/).
 
 Then in the repository root run 
@@ -30,7 +30,7 @@ docker-compose up
 
 This will start a lakeFS instance on port 8000.
 
-3. Jupyter Notebook for Demonstration
+## 3. Jupyter Notebook for Demonstration
 
 Now you can open the `data_versioning_best_practices.ipynb` jupyter notebook, read through it and follow the steps. 
 
