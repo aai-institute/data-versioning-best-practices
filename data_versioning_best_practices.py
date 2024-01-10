@@ -98,7 +98,7 @@ repo = lakefs.Repository(REPO_NAME, fs.client).create(
 """
 lakeFS works similarly to the Git versioning system and shares many of its core concepts.
 You can create *commits* that contain specific changes to the data.
-This commit captures an immutable state of the data at the time of the commit, rather than just saving a delta. This way, you do not have to reiterate over all previous commits to recoup the state of the repository at the commit. 
+This commit captures an immutable state of the data at the time of the commit, rather than just saving a delta. This way, you do not have to reiterate all previous commits to recoup the state of the repository at the commit. 
 You can also work with *branches* to create an isolated view of the data.
 Every commit (on any branch) is identified by a unique commit ID, a unique identifier obtained via a hashing function, also called SHA.
 
@@ -122,7 +122,9 @@ with fs.transaction as tx:
 
 Now that we have the data on the `transform-raw-data` branch, we can start with the transformation.
 
-It is good practice to encapsulate common transformations in (composable) functions. We use type
+It is good practice to encapsulate common transformations in (composable) functions.
+
+We additionally use type hints as they help with understanding the functions and enable support features of the IDE.
 """
 
 
@@ -157,7 +159,7 @@ def add_rain_indicators(df: pd.DataFrame) -> pd.DataFrame:
 # %% [markdown]
 """
 We also add unit tests for our data transformation functions. This ensures the accuracy and reliability of data processing.
-We catch errors early make our code maintainable and scalable code as we ensure that changes or additions to the code don't break existing functionalities.
+We catch errors early to make our code maintainable and scalable as we ensure that changes or additions to the code don't break existing functionalities.
 """
 
 # %%
@@ -196,9 +198,9 @@ assert not df_test.isna().any(
 
 # %% [markdown]
 """
-Encapsulating data processing steps in unit tested functions (which are also made available to the whole team or organisation) saves some work by reusing our code.
+Encapsulating data processing steps in unit-tested functions (which are also made available to the whole team or organization) saves some work by reusing our code.
 Additionally, the tests increase our confidence in the data quality and serve as additional context to infer the purpose of the function should we or someone else come back at a later time.
-Typehints, docstrings, and unit tests serve as documentation and help our peers (and ourself revisiting in six months time) to easily understand the code.
+Type hints, docstrings, and unit tests serve as documentation and help our peers (and ourselves revisiting in six months) to easily understand the code.
 
 We can now apply the functions to process the data.
 """
@@ -242,7 +244,7 @@ We still want to present some keywords and links that serve as a starting point 
 - [Dynamic vs. static data testing by Anomalo](https://www.anomalo.com/post/dynamic-data-testing?gi=fb4db0e2ecb4)
 
 
-Nonetheless, there are probably some basic, heuristic data quality checks, like ensuring no NaNs, that are easy to implement and likely catch big processing erros.
+Nonetheless, there are probably some basic, heuristic data quality checks, like ensuring no NaNs, that are easy to implement and likely catch big processing errors.
 """
 
 # %%
@@ -262,7 +264,7 @@ with fs.transaction as tx:
 # %% [markdown]
 """
 We will now start to develop our ML model. We recommend creating a new branch for each experiment for proper separation.
-There, we will conduct the train test split and further experiment specific modifications, if applicable.
+There, we will conduct the train test split and further experiment-specific modifications, if applicable.
 """
 
 # %%
@@ -306,9 +308,9 @@ Now we have the data on different branches. If new data comes in, we can perform
 Should the new data be important for the experimentation as well, then we can merge the updated `main` branch into the experimentation branch.
 If we expect this version to be referred to by humans often, we can create a new tag for the dataset.
 
-It is important to note that tags cannot be directly reassigned. This is to ensure reproducibility of previously written code.
+It is important to note that tags cannot be directly reassigned. This is to ensure the reproducibility of previously written code.
 
-If you want to reuse tags anyways, for example if you have too many stale tags assigned, you have to delete the tag and create a new one.
-However, be aware as this might break reproducibility in other places (i.e., colleagues might expect unchanged data).
+If you want to reuse tags anyway, for example, if you have too many stale tags assigned, you have to delete the tag and create a new one.
+However, be aware that this might break reproducibility in other places (i.e., colleagues might expect unchanged data).
 To ensure failsafe versioning, use commit IDs instead of tags or branch names in logs or experiment tracking tools.
 """
